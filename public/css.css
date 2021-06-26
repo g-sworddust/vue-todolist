@@ -4,7 +4,13 @@
 }
 li{
   list-style: none;
+  margin: 10px 0;
 }
 .addmission{
   display: none;
+}
+.dltbtn{
+  border: 1px solid #cfcfcf;
+  padding: 3px;
+  cursor: pointer;
 }

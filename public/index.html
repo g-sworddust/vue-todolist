@@ -16,7 +16,10 @@
     <p>今日任务:</p>
 
     <ul>
-      <li v-for="item in nowlist"><input type="checkbox">{{ item }}</li>
+      <li v-for="(item, index) in nowlist" @mouseenter="btnshow(index)" @mouseleave="btnhide">
+        <input type="checkbox">{{ item }}
+        <span class="dltbtn" @click="remove(index)" v-show="index == ShowHide">删除</span>
+      </li>
     </ul>
 
     <p>明日任务：</p>
@@ -28,29 +31,52 @@
     <button v-if="addbtn" @click="addEvt">新建任务</button>
 
     <div v-if="addtag">
-      <span>新建任务</span><input type="text" v-model="str"><button @click="saveEvt">保存</button>
+      <span>新建任务</span>
+      <input type="text" v-model="str" @keyup.13="savekey">
+      <button @click="saveEvt">保存</button>
     </div>
+    
+    <p>已完成/总数</p>
   </div>
   <script src="vue.js"></script>
   <script>
     new Vue({
       el: '#app',
       data: {
-        addbtn:true,
-        addtag:false,
-        nowlist:['学js','学习css'],
-        str: '',
+          addbtn: true,
+          addtag: false,
+          nowlist: ['学js','学习css'],
+          str: '',
+          ShowHide: null
       },
       methods: {
+        // 点击出现输入框
         addEvt(){
           this.addbtn = false;
           this.addtag = true;
         },
+        // 点击保存任务
         saveEvt(){
           this.addbtn = true;
           this.addtag = false;
           this.nowlist.push(this.str);
           this.str = '';
+        },
+        // 回车保存任务
+        savekey(){
+          this.saveEvt();
+        },
+        //删除
+        remove(i){
+          this.nowlist.splice(i,1)
+        },
+        //鼠标移入显示删除按钮
+        btnshow(i){
+          this.ShowHide = i;
+        },
+        //鼠标移出消失删除按钮
+        btnhide(){
+          this.ShowHide = -1;
         }
       }
     })
