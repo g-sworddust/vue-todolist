@@ -2,13 +2,20 @@
   padding: 0;
   margin: 0;
 }
+
 li{
   list-style: none;
   margin: 10px 0;
 }
+
+li input{
+ margin-right: 5px;
+}
+
 .addmission{
   display: none;
 }
+
 .dltbtn{
   border: 1px solid #cfcfcf;
   padding: 3px;

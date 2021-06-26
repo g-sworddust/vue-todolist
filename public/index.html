@@ -17,7 +17,8 @@
 
     <ul>
       <li v-for="(item, index) in nowlist" @mouseenter="btnshow(index)" @mouseleave="btnhide">
-        <input type="checkbox">{{ item }}
+        <input type="checkbox" v-model="item.checked">
+        {{ item.text }}
         <span class="dltbtn" @click="remove(index)" v-show="index == ShowHide">删除</span>
       </li>
     </ul>
@@ -45,7 +46,16 @@
       data: {
           addbtn: true,
           addtag: false,
-          nowlist: ['学js','学习css'],
+          nowlist: [
+            {
+              text:'学习React',
+              checked: false
+            },
+            {
+              text:'学习TS',
+              checked: false
+            }
+          ],
           str: '',
           ShowHide: null
       },
@@ -59,7 +69,10 @@
         saveEvt(){
           this.addbtn = true;
           this.addtag = false;
-          this.nowlist.push(this.str);
+          this.nowlist.push({
+            text: this.str,
+            checked: false
+          });
           this.str = '';
         },
         // 回车保存任务
@@ -78,7 +91,7 @@
         btnhide(){
           this.ShowHide = -1;
         }
-      }
+      },
     })
   </script>
 </body>
