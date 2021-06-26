@@ -10,22 +10,48 @@
 <body>
   <div id="app">
     <h1>任务标签</h1>
+
     <span>搜索任务：</span> <input type="text" placeholder="输入关键字搜索">
+
     <p>今日任务:</p>
+
     <ul>
-      <li><input type="checkbox">ddd</li>
+      <li v-for="item in nowlist"><input type="checkbox">{{ item }}</li>
     </ul>
+
     <p>明日任务：</p>
+
     <ul>
       <li><input type="checkbox">ddd</li>
     </ul>
-    <button>新建任务</button>
+
+    <button v-if="addbtn" @click="addEvt">新建任务</button>
+
+    <div v-if="addtag">
+      <span>新建任务</span><input type="text" v-model="str"><button @click="saveEvt">保存</button>
+    </div>
   </div>
+  <script src="vue.js"></script>
   <script>
     new Vue({
-      el:'#app',
-      date:{
-
+      el: '#app',
+      data: {
+        addbtn:true,
+        addtag:false,
+        nowlist:['学js','学习css'],
+        str: '',
+      },
+      methods: {
+        addEvt(){
+          this.addbtn = false;
+          this.addtag = true;
+        },
+        saveEvt(){
+          this.addbtn = true;
+          this.addtag = false;
+          this.nowlist.push(this.str);
+          this.str = '';
+        }
       }
     })
   </script>
