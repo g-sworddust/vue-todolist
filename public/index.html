@@ -42,7 +42,7 @@
       <button @click="saveEvt">保存</button>
     </div>
     
-    <p>已完成/总数</p>
+    <p>{{done}}已完成/{{sum}}总数</p>
   </div>
   <script src="vue.js"></script>
   <script>
@@ -97,6 +97,17 @@
           this.showHide = -1;
         }
       },
+      computed: {
+        // 任务总数
+        sum(){
+          return this.nowlist.length;
+        },
+        done(){
+          return this.nowlist.filter(itme => {
+            return itme.checked
+          }).length
+        }
+      }
     })
   </script>
 </body>
