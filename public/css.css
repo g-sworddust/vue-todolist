@@ -5,7 +5,9 @@
 
 li{
   list-style: none;
-  margin: 10px 0;
+  margin: 15px 0;
+  height: 29px;
+  line-height: 29px;
 }
 
 li input{
@@ -17,7 +19,13 @@ li input{
 }
 
 .dltbtn{
+  background: none;
   border: 1px solid #cfcfcf;
-  padding: 3px;
+  padding: 5px;
   cursor: pointer;
+}
+
+.completed span{
+  color: #cfcfcf;
+  text-decoration: line-through;
 }

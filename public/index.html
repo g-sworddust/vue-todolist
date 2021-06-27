@@ -16,10 +16,15 @@
     <p>今日任务:</p>
 
     <ul>
-      <li v-for="(item, index) in nowlist" @mouseenter="btnshow(index)" @mouseleave="btnhide">
+      <li 
+        v-for="(item, index) in nowlist" 
+        @mouseenter="btnShow(index)" 
+        @mouseleave="btnHide" 
+        :class="{completed:item.checked}"
+      >
         <input type="checkbox" v-model="item.checked">
-        {{ item.text }}
-        <span class="dltbtn" @click="remove(index)" v-show="index == ShowHide">删除</span>
+        <span class="">{{ item.text }}</span>
+        <button class="dltbtn" @click="remove(index)" v-show="index == showHide">删除</button>
       </li>
     </ul>
 
@@ -33,7 +38,7 @@
 
     <div v-if="addtag">
       <span>新建任务</span>
-      <input type="text" v-model="str" @keyup.13="savekey">
+      <input type="text" v-model="str" @keyup.13="saveKey">
       <button @click="saveEvt">保存</button>
     </div>
     
@@ -57,7 +62,7 @@
             }
           ],
           str: '',
-          ShowHide: null
+          showHide: null
       },
       methods: {
         // 点击出现输入框
@@ -76,7 +81,7 @@
           this.str = '';
         },
         // 回车保存任务
-        savekey(){
+        saveKey(){
           this.saveEvt();
         },
         //删除
@@ -84,12 +89,12 @@
           this.nowlist.splice(i,1)
         },
         //鼠标移入显示删除按钮
-        btnshow(i){
-          this.ShowHide = i;
+        btnShow(i){
+          this.showHide = i;
         },
         //鼠标移出消失删除按钮
-        btnhide(){
-          this.ShowHide = -1;
+        btnHide(){
+          this.showHide = -1;
         }
       },
     })
