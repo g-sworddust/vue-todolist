@@ -23,7 +23,8 @@
         :class="{completed:item.checked}"
       >
         <input type="checkbox" v-model="item.checked">
-        <span class="">{{ item.text }}</span>
+        <span class="text">{{ item.text }}</span>
+        <span v-if="item.labels" class="labels">{{ item.labels }}</span>
         <button class="dltbtn" @click="remove(index)" v-show="index == showHide">删除</button>
       </li>
     </ul>
@@ -62,6 +63,7 @@
             }
           ],
           str: '',
+          labels: '',
           showHide: null
       },
       methods: {
@@ -74,12 +76,24 @@
         saveEvt(){
           this.addbtn = true;
           this.addtag = false;
-          this.nowlist.push({
-            text: this.str,
-            checked: false
-          });
+          if(this.str==""){return;}
+          if(Object.prototype.toString.call(this.str.match(/#(\S*)#/)).slice(8,-1) === 'Array'){
+            this.labels = this.str.match(/#(\S*)#/)[1];
+            this.str = this.str.slice(this.labels.length+3);
+            this.nowlist.push({
+              text: this.str,
+              checked: false,
+              labels: this.labels
+            });
+          }else{
+            this.nowlist.push({
+              text: this.str,
+              checked: false,
+              labels: ""
+            });
+          }
           this.str = '';
-        },
+        }, 
         // 回车保存任务
         saveKey(){
           this.saveEvt();
@@ -95,7 +109,7 @@
         //鼠标移出消失删除按钮
         btnHide(){
           this.showHide = -1;
-        }
+        },
       },
       computed: {
         // 任务总数
@@ -106,7 +120,7 @@
           return this.nowlist.filter(itme => {
             return itme.checked
           }).length
-        }
+        }    
       }
     })
   </script>

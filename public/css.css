@@ -25,7 +25,12 @@ li input{
   cursor: pointer;
 }
 
-.completed span{
+.completed .text{
   color: #cfcfcf;
   text-decoration: line-through;
+}
+
+.labels {
+  border: 1px solid #cfcfcf;
+  padding: 5px;
 }
