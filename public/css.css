@@ -3,26 +3,90 @@
   margin: 0;
 }
 
+body{
+  background-color: #cfcfcf;
+}
+
 li{
   list-style: none;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+#app{
+  width: 800px;
+  margin: 0 auto;
+}
+
+h1{
+  text-align: center;
+}
+
+.search{
+  border: 1px solid #cfcfcf;
+  padding: 5px 1px;
+  outline: none;
+  text-indent: 5px;
+}
+
+.tasklist {
+  margin: 10px 0;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.tasklist li{
+  border-bottom: 1px solid #cfcfcf;
+  padding-left:5px;
   margin: 15px 0;
-  height: 29px;
-  line-height: 29px;
+  height: 35px;
+  line-height: 35px;
 }
 
-li input{
- margin-right: 5px;
-}
-
-.addmission{
-  display: none;
-}
+.tasklist input{
+  margin-right: 5px;
+ }
 
 .dltbtn, .grouping{
   background: none;
-  border: 1px solid #cfcfcf;
+  border: none;
   padding: 5px;
-  cursor: pointer;
+  float:right;
+}
+
+.addbtn,.addtag button{
+  border: rgb(148, 202, 247) 1px solid;
+  background-color: rgb(216, 235, 250);
+  color: rgb(106, 183, 247);
+  width: 70px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.addtag{
+  overflow: hidden;
+}
+
+.addtag span{
+  background: #fff;
+  height: 25px;
+  line-height: 25px;
+  float: left;
+  padding: 0 5px;
+}
+
+.addtag input{
+  background: #fff;
+  border: none;
+  border-left: 1px solid #cfcfcf;
+  height: 25px;
+  outline: none;
+  float: left;
+  text-indent: 5px;
+  margin-right: 10px;
 }
 
 .completed .text{
@@ -32,5 +96,16 @@ li input{
 
 .labels {
   border: 1px solid #cfcfcf;
-  padding: 5px;
+  border-radius: 5px;
+  padding: 2px 5px;
+  font-size: 12px;
+}
+
+.tasklist em {
+  font-style:normal;
+  cursor: pointer;
+}
+
+.statistics {
+  margin-top: 10px;
 }
