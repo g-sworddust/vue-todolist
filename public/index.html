@@ -13,8 +13,6 @@
 
     <span>搜索任务：</span> <input type="text" placeholder="输入关键字搜索">
 
-    <p>今日任务:</p>
-
     <ul>
       <li 
         v-for="(item, index) in nowlist" 
@@ -26,15 +24,25 @@
         <span class="text">{{ item.text }}</span>
         <span v-if="item.labels" class="labels">{{ item.labels }}</span>
         <button class="dltbtn" @click="remove(index)" v-show="index == showHide">删除</button>
+        <button class="grouping" @click="tomorrow(index)" v-show="index == showHide">移至明日</button>
       </li>
     </ul>
 
-    <p>明日任务：</p>
-
+    <p>明日任务</p>
     <ul>
-      <li><input type="checkbox">ddd</li>
+      <li 
+        v-for="(item, index) in tomorrowlist" 
+        @mouseenter="btnShowg(index)" 
+        @mouseleave="btnHideg" 
+        :class="{completed:item.checked}"
+      >
+        <input type="checkbox" v-model="item.checked">
+        <span class="text">{{ item.text }}</span>
+        <span v-if="item.labels" class="labels">{{ item.labels }}</span>
+        <button class="dltbtn" @click="remove(index)" v-show="index == showHideg">删除</button>
+        <button class="grouping" @click="now(index)" v-show="index == showHideg">移至今日</button>
+      </li>
     </ul>
-
     <button v-if="addbtn" @click="addEvt">新建任务</button>
 
     <div v-if="addtag">
@@ -52,19 +60,32 @@
       data: {
           addbtn: true,
           addtag: false,
-          nowlist: [
+          list: [
             {
               text:'学习React',
-              checked: false
+              checked: false,
+              team: '0'
             },
             {
               text:'学习TS',
-              checked: false
+              checked: false,
+              team: '0'
+            },
+            {
+              text:'学习React1',
+              checked: false,
+              team: '0'
+            },
+            {
+              text:'学习TS2',
+              checked: false,
+              team: '0'
             }
           ],
           str: '',
           labels: '',
-          showHide: null
+          showHide: null,
+          showHideg: null,
       },
       methods: {
         // 点击出现输入框
@@ -79,17 +100,19 @@
           if(this.str==""){return;}
           if(Object.prototype.toString.call(this.str.match(/#(\S*)#/)).slice(8,-1) === 'Array'){
             this.labels = this.str.match(/#(\S*)#/)[1];
-            this.str = this.str.slice(this.labels.length+3);
-            this.nowlist.push({
+            this.str = this.str.slice(this.labels.length+2).replace(/(^\s*)|(\s*$)/g, "");
+            this.list.push({
               text: this.str,
               checked: false,
-              labels: this.labels
+              labels: this.labels,
+              team: '0'
             });
           }else{
-            this.nowlist.push({
+            this.list.push({
               text: this.str,
               checked: false,
-              labels: ""
+              labels: "",
+              team: '0'
             });
           }
           this.str = '';
@@ -100,27 +123,59 @@
         },
         //删除
         remove(i){
-          this.nowlist.splice(i,1)
+          this.list.splice(i,1)
         },
-        //鼠标移入显示删除按钮
+        //今日鼠标移入显示删除按钮
         btnShow(i){
           this.showHide = i;
         },
-        //鼠标移出消失删除按钮
+        //今日鼠标移出消失删除按钮
         btnHide(){
           this.showHide = -1;
         },
+        //明日鼠标移入显示删除按钮
+        btnShowg(i){
+          this.showHideg = i;
+        },
+        //明日鼠标移出消失删除按钮
+        btnHideg(){
+          this.showHideg = -1;
+        },
+        // 分组到今日任务列表    
+        now(i){
+          this.tomorrowlist[i].team = '0';
+        },
+        // 分组到明日任务列表    
+        tomorrow(i){
+          this.nowlist[i].team = '1';
+        }  
       },
       computed: {
         // 任务总数
         sum(){
-          return this.nowlist.length;
+          return this.list.length;
         },
+
+        // 已完成数量
         done(){
-          return this.nowlist.filter(itme => {
+          return this.list.filter(itme => {
             return itme.checked
           }).length
-        }    
+        },
+
+        // 今天任务列表
+        nowlist(){
+          return this.list.filter(itme => {
+            return itme.team == '0'
+          })
+        },
+
+        // 明日任务列表
+        tomorrowlist(){
+          return this.list.filter(itme => {
+            return itme.team == '1'
+          })
+        }
       }
     })
   </script>
