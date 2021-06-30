@@ -12,7 +12,7 @@
     <h1>任务标签</h1>
 
     <span>搜索任务：</span> <input type="text" class="search" placeholder="输入关键字搜索" v-model="searchVal">
-    <div class="tasklist">
+    <div class="task-list">
       <p>今日任务</p>
       <ul>
         <li 
@@ -25,13 +25,13 @@
           <input type="checkbox" v-model="item.checked">
           <span class="text">{{ item.text }}</span>
           <span v-if="item.labels" class="labels">{{ item.labels }} <em @click="nowLabels(index)">x</em></span>
-          <button class="dltbtn" @click="remove(index,item.id)" v-show="index == showHide">删除</button>
+          <button class="dlt-btn" @click="remove(index,item.id)" v-show="index == showHide">删除</button>
           <button class="grouping" @click="tomorrow(index)" v-show="index == showHide">移至明日</button>
         </li>
       </ul>
     </div>
 
-    <div class="tasklist">
+    <div class="task-list">
       <p>明日任务</p>
       <ul>
         <li 
@@ -44,19 +44,19 @@
           <input type="checkbox" v-model="item.checked">
           <span class="text">{{ item.text }}</span>
           <span v-if="item.labels" class="labels">{{ item.labels }} <em @click="tomorrowLabels(index)">x</em> </span>
-          <button class="dltbtn" @click="remove(index,item.id)" v-show="index == showHideg">删除</button>
+          <button class="dlt-btn" @click="remove(index,item.id)" v-show="index == showHideg">删除</button>
           <button class="grouping" @click="now(index)" v-show="index == showHideg">移至今日</button>
         </li>
       </ul>
     </div>
     
-    <div class="addtag" v-if="addtag">
+    <div class="add-tag" v-if="addtag">
       <span>新建任务:</span>
       <input type="text" v-model="str" @keyup.13="saveKey">
       <button @click="saveEvt">保存</button>
     </div>
     
-    <button class="addbtn" v-if="addbtn" @click="addEvt">新建任务</button>
+    <button class="add-btn" v-if="addbtn" @click="addEvt">新建任务</button>
 
     <p class="statistics">{{done}}已完成/{{sum}}总数</p>
   </div>
