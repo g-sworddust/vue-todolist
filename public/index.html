@@ -58,7 +58,7 @@
     
     <button class="add-btn" v-if="addbtn" @click="addEvt">新建任务</button>
 
-    <p class="statistics">{{done}}已完成/{{sum}}总数</p>
+    <p class="statistics" >{{done}}已完成/{{sum}}总数</p>
   </div>
   <script src="vue.js"></script>
   <script>
@@ -194,12 +194,14 @@
       computed: {
         // 任务总数
         sum(){
-          return this.list.length;
+          return this.nowlist.length + this.tomorrowlist.length;
         },
 
         // 已完成数量
         done(){
-          return this.list.filter(itme => {
+          return this.nowlist.filter(itme => {
+            return itme.checked
+          }).length + this.tomorrowlist.filter(itme => {
             return itme.checked
           }).length
         },
